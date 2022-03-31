@@ -9,6 +9,13 @@ def create_app(test_config=None):
 #app should use the key when creating server-side sessions
     )
 
-    return app 
 
 #We use a from...import statement to import the Flask() function and then use the def keyword to define a create_app() function.
+
+
+    @app.route('/hello')
+    def hello():
+        return 'hello world'
+
+    return app  
+#when visiting 127.0.0.1:5000/hello the page will return hello world 
