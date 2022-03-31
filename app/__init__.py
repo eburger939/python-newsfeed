@@ -1,3 +1,7 @@
+from app.routes import home 
+#importing bp that was renamed as home within the routes init.py file 
+#other way of writing if it wasn't already imported/renamed:
+#from app.routes.home import bp as home 
 from flask import Flask
 def create_app(test_config=None):
     app = Flask(__name__, static_url_path="/")
@@ -16,6 +20,6 @@ def create_app(test_config=None):
     @app.route('/hello')
     def hello():
         return 'hello world'
-
+    app.register_blueprint(home)
     return app  
 #when visiting 127.0.0.1:5000/hello the page will return hello world 
