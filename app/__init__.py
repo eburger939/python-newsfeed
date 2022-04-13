@@ -3,6 +3,9 @@ from app.routes import home, dashboard
 #other way of writing if it wasn't already imported/renamed:
 #from app.routes.home import bp as home 
 from flask import Flask
+from app.db import init_db
+
+
 def create_app(test_config=None):
     app = Flask(__name__, static_url_path="/")
 #The app should serve any static resources from the root directory and not from the default /static directory.
@@ -22,5 +25,6 @@ def create_app(test_config=None):
         return 'hello world'
     app.register_blueprint(home)
     app.register_blueprint(dashboard)
+    init_db(app)
     return app  
 #when visiting 127.0.0.1:5000/hello the page will return hello world 
