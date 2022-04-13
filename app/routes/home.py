@@ -22,4 +22,6 @@ def login():
 @bp.route('/post/<id>')
 #<id> is basically the same as a parameter in the url route 
 def single(id):
-    return render_template('single-post.html')
+    db = get_db()
+    post = db.query(Post).filter(Post.id == id).one()
+    return render_template('single-post.html', post=post)
