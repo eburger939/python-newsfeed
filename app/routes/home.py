@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, session, redirect 
 #blueprint allows you to consolidate routes into a single object (bp) that the parent app can register later
 #similar to using router middelware when using express.js
 from app.models import Post
@@ -13,15 +13,17 @@ def index():
     #get all posts
     db = get_db()
     posts = db.query(Post).order_by(Post.created_at.desc()).all()
-    return render_template('homepage.html', posts=posts)
+    return render_template('homepage.html', posts=posts, loggedIn=session.get('loggedIn'))
     #return is the response, using render_template allows to return a template instead of a string
 @bp.route('/login')
 def login():
-    return render_template('login.html')
+    if session.get('loggedIn') is None:
+            return render_template('login.html')
+    return redirect('/dashboard')
 
 @bp.route('/post/<id>')
 #<id> is basically the same as a parameter in the url route 
 def single(id):
     db = get_db()
     post = db.query(Post).filter(Post.id == id).one()
-    return render_template('single-post.html', post=post)
+    return render_template('single-post.html', post=post, loggedIn=session.get(loggedIn))

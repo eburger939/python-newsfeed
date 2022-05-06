@@ -1,4 +1,4 @@
-from app.routes import home, dashboard
+from app.routes import home, dashboard, api
 #importing bp that was renamed as home within the routes init.py file 
 #other way of writing if it wasn't already imported/renamed:
 #from app.routes.home import bp as home 
@@ -29,6 +29,7 @@ def create_app(test_config=None):
         return 'hello world'
     app.register_blueprint(home)
     app.register_blueprint(dashboard)
+    app.register_blueprint(api)
     init_db(app)
     return app  
 #when visiting 127.0.0.1:5000/hello the page will return hello world 
